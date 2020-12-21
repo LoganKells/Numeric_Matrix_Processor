@@ -1,7 +1,10 @@
 # Numeric Matrix Processor
 
-A GUI for analyzing Pandas DataFrames.
+This program can perform a variety of operations on matrices including addition, multiplication, finding the determinant, and inversing matrices.
 
 ## Demo
 
 [!["Numeric Matrix Processor Demo"](https://i.imgur.com/monikw3.png)](https://i.imgur.com/ctFVeyR.mp4 "Numeric Matrix Processor Demo")
+
+## Reference
+[JetBrains Academy Java Developer](https://hyperskill.org/projects/60?track=1)
