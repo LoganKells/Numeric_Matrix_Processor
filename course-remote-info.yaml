@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/210082/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Fri, 18 Dec 2020 23:58:32 UTC
+update_date: Mon, 21 Dec 2020 02:41:29 UTC
 stages:
 - id: 323
   step: 5465
@@ -105,6 +105,8 @@ topics:
   3:
   - title: Introduction to OOP
     theory_id: 3614
+  - title: Write, compile, and run
+    theory_id: 3739
   - title: Characters
     theory_id: 3514
   - title: The main method
@@ -115,8 +117,6 @@ topics:
     theory_id: 3523
   - title: Final variables
     theory_id: 7427
-  - title: Write, compile, and run
-    theory_id: 3739
   - title: Defining classes
     theory_id: 3618
   - title: Package
