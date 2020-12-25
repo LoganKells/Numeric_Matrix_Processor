@@ -4,14 +4,15 @@ import java.util.Scanner;
 
 /**MatrixHandler provides matrix operations.
  * Operations:
- * - checkEquivalentDimensions - Checks if two 2D matrices have equal dimensions.
- * - matrixAddition - Adds two matrices
+ * - readCreateMatrix()
+ * - runMatrixAddition()
  * */
 public class MatrixHandler {
     // Class variables
     private Scanner dataInput;
     private Matrix matrixA;
     private Matrix matrixB;
+    private int scalar;
 
     // Constructor
     public MatrixHandler() {
@@ -40,25 +41,34 @@ public class MatrixHandler {
         return myMatrix;
     }
 
-    /**This method checks for equivalent dimensions between two 2D matrices.*/
-    public Boolean checkEquivalentDimensions(Matrix matrixA, Matrix matrixB) {
-        int nMatrixA = matrixA.getN();
-        int mMatrixA = matrixA.getM();
-        int nMatrixB = matrixB.getN();
-        int mMatrixB = matrixB.getM();
+    public void readScalar() {
+        this.scalar = this.dataInput.nextInt();
+    }
 
-        return nMatrixA == nMatrixB && mMatrixA == mMatrixB;
-    }
-    /**This method performs the matrix addition operation for two 2D matrices.*/
-    public Matrix matrixAddition(Matrix matrixA, Matrix matrixB) {
-        int n = matrixA.getN();
-        int m = matrixA.getM();
-        Matrix matrixC = new Matrix(n, m);
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                matrixC.matrix[i][j] = matrixA.matrix[i][j] + matrixB.matrix[i][j];
-            }
+    public void runMatrixAddition() {
+        // Create matrices
+        Matrix matrixA = readCreateMatrix();
+        Matrix matrixB = readCreateMatrix();
+
+        // Calculate matrix addition
+        Boolean equalDimensions = matrixA.checkEquivalentDimensions(matrixB);
+        if (equalDimensions) {
+            Matrix matrixC = matrixA.matrixAddition(matrixB);
+            matrixC.printMatrix();
+        } else {
+            System.out.println("ERROR");
         }
-        return matrixC;
     }
+
+    public void runMatrixScalar() {
+        // Create matrix
+        Matrix matrixA = readCreateMatrix();
+        // Read in the scalar
+        readScalar();
+        // Calculate the scalar matrix operation: alpha * A
+        matrixA.matrixScalar(this.scalar);
+
+        matrixA.printMatrix();
+    }
+
 }
