@@ -301,6 +301,166 @@ files:
 
     }
   learner_created: false
+- name: src/processor/Matrix.java
+  visible: true
+  text: |
+    package processor;
+
+    import java.util.Arrays;
+
+    /**This class is a n x m dimensioned matrix.
+     * Operations:
+     * - loadMatrix - use a data list to load a n x m matrix.
+     * - printMatrix - prints all elements in the 2D matrix
+     * */
+    public class Matrix {
+        // Variables
+        private int n;
+        private int m;
+        int[][] matrix;
+
+        // Constructor
+        public Matrix(int n, int m) {
+            this.n = n;
+            this.m = m;
+            matrix = new int[n][m];
+        }
+
+        // Accessors
+        public int getN() {
+            return this.n;
+        }
+        public int getM() {
+            return this.m;
+        }
+
+        // Mutators
+        public void loadMatrix(int[] data) {
+            int dataIndex = 0;
+            for (int i = 0; i < this.n; i++) {
+                for (int j = 0; j < this.m; j++) {
+                    matrix[i][j] = data[dataIndex];
+                    dataIndex++;
+                }
+            }
+        }
+        public void printMatrix() {
+            for (int i = 0; i < this.n; i++) {
+                for (int j = 0; j < this.m; j++) {
+                    System.out.print(matrix[i][j] + " ");
+                }
+                System.out.print('\n');
+            }
+        }
+
+        /**This method checks for equivalent dimensions between two 2D matrices.*/
+        public Boolean checkEquivalentDimensions(Matrix matrixB) {
+            int nMatrixB = matrixB.getN();
+            int mMatrixB = matrixB.getM();
+
+            return this.n == nMatrixB && this.m == mMatrixB;
+        }
+        /**This method performs the matrix addition operation for two 2D matrices.*/
+        public Matrix matrixAddition(Matrix matrixB) {
+            Matrix matrixC = new Matrix(this.n, this.m);
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    matrixC.matrix[i][j] = matrix[i][j] + matrixB.matrix[i][j];
+                }
+            }
+            return matrixC;
+        }
+
+        public void matrixScalar(int alpha) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    matrix[i][j] *= alpha;
+                }
+            }
+        }
+    }
+  learner_created: true
+- name: src/processor/MatrixHandler.java
+  visible: true
+  text: |
+    package processor;
+
+    import java.util.Scanner;
+
+    /**MatrixHandler provides matrix operations.
+     * Operations:
+     * - readCreateMatrix()
+     * - runMatrixAddition()
+     * */
+    public class MatrixHandler {
+        // Class variables
+        private Scanner dataInput;
+        private Matrix matrixA;
+        private Matrix matrixB;
+        private int scalar;
+
+        // Constructor
+        public MatrixHandler() {
+            this.dataInput = new Scanner(System.in);
+        }
+
+        /** Read the first two integers as the n x m matrix dimensions, then read the subsequent n*m integers
+         * and store in the matrix.*/
+        public Matrix readCreateMatrix() {
+            // Get dimensions
+            int n = this.dataInput.nextInt();
+            int m = this.dataInput.nextInt();
+
+            // Create an empty Matrix
+            Matrix myMatrix = new Matrix(n, m);
+
+            // Read the next n*m integers
+            int[] dataList = new int[n * m];
+            for (int i = 0; i < dataList.length; i++) {
+                dataList[i] = this.dataInput.nextInt();
+            }
+
+            // Load the integer data to the matrix
+            myMatrix.loadMatrix(dataList);
+            // Return the matrix populated with data.
+            return myMatrix;
+        }
+
+        public void readScalar() {
+            this.scalar = this.dataInput.nextInt();
+        }
+
+        public void runMatrixAddition() {
+            // Create matrices
+            Matrix matrixA = readCreateMatrix();
+            Matrix matrixB = readCreateMatrix();
+
+            // Calculate matrix addition
+            Boolean equalDimensions = matrixA.checkEquivalentDimensions(matrixB);
+            if (equalDimensions) {
+                Matrix matrixC = matrixA.matrixAddition(matrixB);
+                matrixC.printMatrix();
+            } else {
+                System.out.println("ERROR");
+            }
+        }
+
+        public void runMatrixScalar() {
+            // Create matrix
+            Matrix matrixA = readCreateMatrix();
+            // Read in the scalar
+            readScalar();
+            // Calculate the scalar matrix operation: alpha * A
+            matrixA.matrixScalar(this.scalar);
+
+            matrixA.printMatrix();
+        }
+
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/60/stages/325/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sat, 26 Dec 2020 21:39:49 UTC
 record: -1
