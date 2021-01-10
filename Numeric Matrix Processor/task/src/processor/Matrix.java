@@ -38,7 +38,8 @@ public class Matrix {
             }
         }
     }
-    public void printMatrix() {
+
+    void printMatrix() {
         for (int i = 0; i < this.n; i++) {
             for (int j = 0; j < this.m; j++) {
                 System.out.print(matrix[i][j] + " ");
@@ -48,21 +49,21 @@ public class Matrix {
     }
 
     /**This method checks for equivalent dimensions between two 2D matrices.*/
-    public boolean checkEquivalentDimensions(Matrix matrixB) {
+    boolean checkEquivalentDimensions(Matrix matrixB) {
         int nMatrixB = matrixB.getN();
         int mMatrixB = matrixB.getM();
 
         return this.n == nMatrixB && this.m == mMatrixB;
     }
 
-    public boolean checkMultiplicationDimensions(Matrix matrixB) {
+    boolean checkMultiplicationDimensions(Matrix matrixB) {
         // the n x m matrix can only multiply m x k matrix.
         int nMatrixB = matrixB.getN();
         return nMatrixB == this.m;
     }
 
     /**This method performs the matrix addition operation for two 2D matrices.*/
-    public Matrix matrixAddition(Matrix matrixB) {
+    Matrix matrixAddition(Matrix matrixB) {
         Matrix matrixC = new Matrix(this.n, this.m);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
@@ -72,7 +73,7 @@ public class Matrix {
         return matrixC;
     }
 
-    public void matrixScalar(double alpha) {
+    void matrixScalar(double alpha) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 matrix[i][j] *= alpha;
@@ -80,7 +81,7 @@ public class Matrix {
         }
     }
 
-    public double[] getMatrixColumn(int j) {
+    double[] getMatrixColumn(int j) {
         // Create a column vector with the length equivalent to the row count of the matrix.
         double[] columnVector = new double[this.n];
 
@@ -91,7 +92,7 @@ public class Matrix {
         return columnVector;
     }
 
-    public Matrix matrixMultiplication(Matrix matrixB) {
+    Matrix matrixMultiplication(Matrix matrixB) {
         // Calculate new dimensions
         int nMatrixC = this.n;
         int mMatrixC = matrixB.getM();
@@ -111,5 +112,116 @@ public class Matrix {
 
         }
         return matrixC;
+    }
+
+    /** This method will return the matrix's main transpose.
+     * Enter matrix:
+     * 1 7 7
+     * 6 6 4
+     * 4 2 1
+     * The result is:
+     * 1 6 4
+     * 7 6 2
+     * 7 4 1
+     * */
+    Matrix matrixTransposeMain() {
+        // Calculate new dimensions with the transpose and create this matrix
+        int n_t = this.m;
+        int m_t = this.n;
+        Matrix matrixA_T = new Matrix(n_t, m_t); // transposed matrix A
+
+        // Perform transpose
+        for (int i = 0; i < n_t; i++) {
+            for (int j = 0; j < m_t; j++) {
+                matrixA_T.matrix[i][j] = matrix[j][i];
+            }
+        }
+        return matrixA_T;
+    }
+
+    /** This method will return the matrix's main transpose.
+     * Enter matrix:
+     * 1 1 1 -1
+     * 2 2 2 -2
+     * 3 3 3 -3
+     * The result is:
+     * -3 -2 -1
+     * 3 2 1
+     * 3 2 1
+     * 3 2 1
+     * */
+    Matrix matrixTransposeSide() {
+        // Calculate new dimensions with the transpose and create this matrix
+        int n_t = this.m;
+        int m_t = this.n;
+        Matrix matrixA_T = new Matrix(n_t, m_t); // transposed matrix A
+
+        // Perform transpose
+        int n_original;
+        int m_original = this.m;
+        for (int i = 0; i < n_t; i++) {
+            n_original = this.n;
+            for (int j = 0; j < m_t; j++) {
+                matrixA_T.matrix[i][j] = matrix[n_original - 1][m_original - 1];
+                n_original--;
+            }
+            m_original--;
+        }
+        return matrixA_T;
+    }
+
+    /** This method will return the matrix's vertical transpose.
+     * Enter matrix:
+     * 1 2 3 4
+     * 5 6 7 8
+     * 9 10 11 12
+     * 13 14 15 16
+     * The result is:
+     * 4 3 2 1
+     * 8 7 6 5
+     * 12 11 10 9
+     * 16 15 14 13
+     * */
+    Matrix matrixTransposeVertical()  {
+        // Create a new matrix (dimensions remain the same as the original matrix)
+        Matrix matrixA_T = new Matrix(this.n, this.m);
+
+        // Perform transpose
+        int m_original;
+        for (int i = 0; i < this.n; i++) {
+            m_original = this.m;
+            for (int j = 0; j < this.m; j++) {
+                matrixA_T.matrix[i][j] = matrix[i][m_original - 1];
+                m_original--;
+            }
+        }
+        return matrixA_T;
+    }
+
+    /** This method will return the matrix's main horizontal transpose.
+     * Enter matrix:
+     * 1 2 3 4
+     * 5 6 7 8
+     * 9 10 11 12
+     * 13 14 15 16
+     * The result is:
+     * 13 14 15 16
+     * 9 10 11 12
+     * 5 6 7 8
+     * 1 2 3 4
+     * */
+    Matrix matrixTransposeHorizontal() {
+        // Create a new matrix (dimensions remain the same as the original matrix)
+        Matrix matrixA_T = new Matrix(this.n, this.m);
+
+        // Perform transpose
+        int n_original = this.n;
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.m; j++) {
+                matrixA_T.matrix[i][j] = matrix[n_original - 1][j];
+            }
+            n_original--;
+        }
+        return matrixA_T;
     }
 }

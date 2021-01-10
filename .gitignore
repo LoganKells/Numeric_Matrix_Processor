@@ -1,6 +1,8 @@
 # Project exclude paths
 .gradle/**
 Problems/**
+.idea/modules/Problems/
+
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,macos
