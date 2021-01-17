@@ -28,6 +28,7 @@ class MatrixHandler {
             System.out.println("2. Multiply matrix by a constant");
             System.out.println("3. Multiply matrices");
             System.out.println("4. Transpose matrix");
+            System.out.println("5. Calculate a determinant");
             System.out.println("0. Exit");
             System.out.print("Your choice: ");
             userSelection = this.dataInput.nextInt();
@@ -64,9 +65,14 @@ class MatrixHandler {
                             break;
                         case 4:
                             runMatrixTranspose("horizontal");
+                            break;
                         default:
                             break;
                     }
+                    break;
+                case 5:
+                    runMatrixDeterminant();
+                    break;
                 default:
                     break;
             }
@@ -180,24 +186,52 @@ class MatrixHandler {
         System.out.println("Enter matrix:");
         Matrix matrixA = readCreateMatrix(n, m);
 
-        if (type.equals("main")) {
-            Matrix matrixA_T = matrixA.matrixTransposeMain();
-            System.out.println("The result is:");
-            matrixA_T.printMatrix();
+        switch (type) {
+            case "main": {
+                Matrix matrixA_T = matrixA.matrixTransposeMain();
+                System.out.println("The result is:");
+                matrixA_T.printMatrix();
+                break;
+            }
+            case "side": {
+                Matrix matrixA_T = matrixA.matrixTransposeSide();
+                System.out.println("The result is:");
+                matrixA_T.printMatrix();
+                break;
+            }
+            case "vertical": {
+                Matrix matrixA_T = matrixA.matrixTransposeVertical();
+                System.out.println("The result is:");
+                matrixA_T.printMatrix();
+                break;
+            }
+            default: {
+                Matrix matrixA_T = matrixA.matrixTransposeHorizontal();
+                System.out.println("The result is:");
+                matrixA_T.printMatrix();
+                break;
+            }
         }
-        else if (type.equals("side")) {
-            Matrix matrixA_T = matrixA.matrixTransposeSide();
+    }
+
+    private void runMatrixDeterminant() {
+        // Create a matrix
+        System.out.print("Enter matrix size: ");
+        int n = this.dataInput.nextInt();
+        int m = this.dataInput.nextInt();
+        System.out.println("Enter matrix:");
+        Matrix matrixA = readCreateMatrix(n, m);
+
+        // Run the Determinant operation of the matrix. NOTE: Must be a square matrix.
+        if (matrixA.isSquare()) {
+            // Choose the laplace expansion row to use.
+            // See: https://www.cliffsnotes.com/study-guides/algebra/linear-algebra/the-determinant/laplace-expansions-for-the-determinant
+            int laplaceRow = 0;
+            double det = matrixA.determinant(matrixA, laplaceRow);
             System.out.println("The result is:");
-            matrixA_T.printMatrix();
-        }
-        else if (type.equals("vertical")) {
-            Matrix matrixA_T = matrixA.matrixTransposeVertical();
-            System.out.println("The result is:");
-            matrixA_T.printMatrix();
+            System.out.println(det);
         } else {
-            Matrix matrixA_T = matrixA.matrixTransposeHorizontal();
-            System.out.println("The result is:");
-            matrixA_T.printMatrix();
+            System.out.println("Error. Matrix must be square n x n dimensions for determinant operation.");
         }
     }
 

@@ -199,11 +199,13 @@ public class Matrix {
     }
 
     /** This method will return the matrix's main horizontal transpose.
+     *
      * Enter matrix:
      * 1 2 3 4
      * 5 6 7 8
      * 9 10 11 12
      * 13 14 15 16
+     *
      * The result is:
      * 13 14 15 16
      * 9 10 11 12
@@ -223,5 +225,72 @@ public class Matrix {
             n_original--;
         }
         return matrixA_T;
+    }
+
+    /** This method with check if the matrix is square n x n dimensions.*/
+    boolean isSquare() {
+        return this.n == this.m;
+    }
+
+    /** This method will return the matrix's determinant: det(A)
+     * See Laplace Expansion here: https://www.cliffsnotes.com/study-guides/algebra/linear-algebra/the-determinant/laplace-expansions-for-the-determinant
+     *
+     * Enter matrix:
+     * 1 2 3 4 5
+     * 4 5 6 4 3
+     * 0 0 0 1 5
+     * 1 3 9 8 7
+     * 5 8 4 7 11
+     *
+     * The result is:
+     * 191
+     * */
+    double determinant(Matrix A, int laplaceRow) {
+        if (A.m <= 2) {
+            // This will calculate the determinant of a 2 x 2 matrix.
+            double a00 = A.matrix[0][0];
+            double a11 = A.matrix[1][1];
+            double a10 = A.matrix[1][0];
+            double a01 = A.matrix[0][1];
+            return a00 * a11 - a10 * a01;
+        } else {
+            // We will recursively calculate the determinant using laplace expansions.
+            // The matrix is
+            double det = 0;
+            for (int j = 0; j < A.m; j++) {
+                double sign = Math.pow(-1, (laplaceRow + 1 + j + 1));
+                Matrix subMatrix = A.removeRowCol(laplaceRow, j);
+                double cofactor = sign * A.matrix[laplaceRow][j] * determinant(subMatrix, laplaceRow);
+                det += cofactor;
+            }
+            return det;
+        }
+    }
+
+    /** This method will remove the i row and j column from the matrix*/
+    Matrix removeRowCol(int deleteRow, int deleteCol) {
+        // Create new, smaller matrix with 1 less row and column (after a row and column are removed).
+        Matrix subMatrix = new Matrix(this.n - 1, this.m - 1);
+
+        // Keep values
+        for (int i = 0; i < this.n; i++) {
+            for (int j = 0; j < this.m; j++) {
+                if (j < deleteCol && i < deleteRow) {
+                    subMatrix.matrix[i][j] = this.matrix[i][j];
+                }
+                else if (j < deleteCol && i > deleteRow) {
+                    subMatrix.matrix[i - 1][j] = this.matrix[i][j];
+                }
+                else if (j > deleteCol && i < deleteRow) {
+                    subMatrix.matrix[i][j - 1] = this.matrix[i][j];
+                }
+                else if (j > deleteCol && i > deleteRow) {
+                    subMatrix.matrix[i - 1][j - 1] = this.matrix[i][j];
+                } else {
+                    continue;
+                }
+            }
+        }
+        return subMatrix;
     }
 }
