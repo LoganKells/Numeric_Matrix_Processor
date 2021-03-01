@@ -29,6 +29,7 @@ class MatrixHandler {
             System.out.println("3. Multiply matrices");
             System.out.println("4. Transpose matrix");
             System.out.println("5. Calculate a determinant");
+            System.out.println("6. Inverse matrix");
             System.out.println("0. Exit");
             System.out.print("Your choice: ");
             userSelection = this.dataInput.nextInt();
@@ -72,6 +73,9 @@ class MatrixHandler {
                     break;
                 case 5:
                     runMatrixDeterminant();
+                    break;
+                case 6:
+                    runMatrixInverse();
                     break;
                 default:
                     break;
@@ -235,5 +239,28 @@ class MatrixHandler {
         }
     }
 
+    private void runMatrixInverse() {
+        // Create a matrix
+        System.out.print("Enter matrix size: ");
+        int n = this.dataInput.nextInt();
+        int m = this.dataInput.nextInt();
+        System.out.println("Enter matrix:");
+        Matrix matrixA = readCreateMatrix(n, m);
 
+        // Calculate the determinant of the matrix.
+        int laplaceRow = 0;
+        double determinantA = matrixA.determinant(matrixA, laplaceRow);
+
+        // If det(A) = 0 then matrix A is singular. Otherwise the matrix is nonsingular.
+        // Calculate the matrix inverse if the matrix is nonsingular.
+        if (determinantA != 0) {
+            // Calculate the adjoint matrix.
+            Matrix inverseMatrixA = matrixA.matrixInverse(matrixA, determinantA);
+            System.out.println("The result is:");
+            inverseMatrixA.printMatrix();
+
+        } else {
+            System.out.println("This matrix doesn't have an inverse.");
+        }
+    }
 }

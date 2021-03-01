@@ -1,17 +1,6 @@
 type: edu
 custom_name: stage6
 files:
-- name: src/processor/Main.java
-  visible: true
-  text: |
-    package processor;
-
-    public class Main {
-        public static void main(String[] args) {
-            System.out.println("Hello World!");
-        }
-    }
-  learner_created: false
 - name: test/NumericMatrixProcessorTest.java
   visible: false
   text: |
@@ -1009,6 +998,20 @@ files:
 
     }
   learner_created: true
+- name: src/processor/Main.java
+  visible: true
+  text: |
+    package processor;
+
+    public class Main {
+        public static void main(String[] args) {
+            System.out.println("Hello World!");
+        }
+    }
+  learner_created: false
 feedback_link: https://hyperskill.org/projects/60/stages/328/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Mon, 01 Mar 2021 01:36:32 UTC
 record: -1

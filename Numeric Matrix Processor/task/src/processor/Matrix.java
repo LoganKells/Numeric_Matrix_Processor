@@ -260,12 +260,54 @@ public class Matrix {
             for (int j = 0; j < A.m; j++) {
                 double sign = Math.pow(-1, (laplaceRow + 1 + j + 1));
                 Matrix subMatrix = A.removeRowCol(laplaceRow, j);
-                double cofactor = sign * A.matrix[laplaceRow][j] * determinant(subMatrix, laplaceRow);
-                det += cofactor;
+                double cofactor = sign * determinant(subMatrix, laplaceRow);
+                det += (cofactor * A.matrix[laplaceRow][j]);
             }
             return det;
         }
     }
+
+    /** This method will return the matrix's Adjoint (matrix of cofactors):
+     * See example of adjoint matrix here: https://www.youtube.com/watch?v=xfhzwNkMNg4
+     *
+     * Enter matrix:
+     * 2 -1 0
+     * 0 1 2
+     * 1 1 0
+     *
+     * The result is:
+     * -2 2 -1
+     * 0 0 -3
+     * -2 -4 2
+     * */
+    Matrix matrixInverse(Matrix A, double detA) {
+        // Create empty matrix to store cofactors
+        Matrix adjMatrix = new Matrix(A.n, A.m);
+
+        // Calculate the adjoint matrix.
+        for (int i = 0; i < A.n; i++) {
+            for (int j = 0; j < A.m; j++) {
+                double sign = Math.pow(-1, (i + 1 + j + 1));
+                Matrix subMatrix = A.removeRowCol(i, j);
+                double cofactor = sign * determinant(subMatrix, 0);
+                adjMatrix.matrix[i][j] = cofactor;
+            }
+        }
+
+        // Transpose the adjoint matrix along the main diagonal
+        Matrix adjMatrix_T = adjMatrix.matrixTransposeMain();
+
+        // Calculate the inverse of Matrix A
+        for (int i = 0; i < A.n; i++) {
+            for (int j = 0; j < A.m; j++) {
+                double val = adjMatrix_T.matrix[i][j];
+                adjMatrix_T.matrix[i][j] = (val / detA);
+            }
+        }
+
+        return adjMatrix_T;
+    }
+
 
     /** This method will remove the i row and j column from the matrix*/
     Matrix removeRowCol(int deleteRow, int deleteCol) {
