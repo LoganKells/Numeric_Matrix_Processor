@@ -1,9 +1,9 @@
 # Numeric Matrix Processor
 
-This program can perform a variety of operations on matrices including addition, multiplication, finding the determinant, and inversing matrices.
+This program can perform a variety of operations on matrices including addition, multiplication, finding the determinant, and inverting matrices.
 
 ## Methods
-Please see *./Numeric Matrix Processor/task/src/processor* for .java files.
+Please see *./src/processor* for .java files.
 
 ## Demo (click image for video)
 
