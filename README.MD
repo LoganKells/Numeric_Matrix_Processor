@@ -1,13 +1,21 @@
 # Numeric Matrix Processor
 
-This program can perform a variety of operations on matrices including addition, multiplication, finding the determinant, and inverting matrices.
+This program can perform a variety of operations on matrices including:
 
-## Methods
-Please see *./src/processor* for .java files.
+<ul>
+<li>matrix addition</li>
+<li>matrix multiplication</li>
+<li>finding determinant of matrix</li>
+<li>inverting an invertible matrix</li>
+</ul>
 
-## Demo (click image for video)
+!["Numeric Matrix Processor Demo"](https://media.giphy.com/media/PMKc5VNJ6KKJimKdwQ/giphy.gif "Numeric Matrix Processor Demo")
 
-[!["Numeric Matrix Processor Demo"](https://i.imgur.com/monikw3.png)](https://i.imgur.com/ctFVeyR.mp4 "Numeric Matrix Processor Demo")
+## Installation
+<ol>
+<li>Clone repo.</li>
+<li>Run from ./src/processor/Main.java</li>
+</ol>
 
 ## Reference
 [JetBrains Academy Java Developer](https://hyperskill.org/projects/60?track=1)
